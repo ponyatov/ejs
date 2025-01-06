@@ -29,8 +29,7 @@
             "inherits": "cortexM",
             "cacheVariables": {
                 "MCPU": "-mcpu=cortex-m4",
-                "MFPU": "-mfpu=fpv4-sp-d16 -mfloat-abi=hard",
-                "ARCH": "CortexM4"
+                "MFPU": "-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
             }
         },
         {
