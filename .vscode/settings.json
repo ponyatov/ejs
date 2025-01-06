@@ -25,6 +25,7 @@
         "ref/**": true,
     },
     "files.associations": {
+        ".boot*": "javascript"
     },
 
     // editor
