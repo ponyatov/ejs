@@ -32,6 +32,8 @@ file(GLOB_RECURSE H
 
 include_directories(
     ${INC} ${TMP} ${SRC}
+    "${CWD}/hw/${HW}/inc"
+    "${CWD}/os/${OS}/inc"
 )
 
 message("-- toolchain: " ${CMAKE_TOOLCHAIN_FILE})
