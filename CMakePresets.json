@@ -20,7 +20,7 @@
             "cacheVariables": {
                 "WFLAGS":     "-Wall -Wextra -Wpedantic",
                 "FSECTIONS":  "-fdata-sections -ffunction-sections",
-                "GCSECTIONS": "-Wl,--gc-sections"
+                "OS":         "bare"
             }
         },
         {
