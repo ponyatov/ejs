@@ -13,6 +13,36 @@
             }
         },
         {
+            "name": "cortexM",
+            "hidden": true,
+            "inherits": "common",
+            "toolchainFile": "${sourceDir}/cmake/arm-none-eabi-gcc.cmake",
+            "cacheVariables": {
+                "WFLAGS":     "-Wall -Wextra -Wpedantic",
+                "FSECTIONS":  "-fdata-sections -ffunction-sections",
+                "GCSECTIONS": "-Wl,--gc-sections"
+            }
+        },
+        {
+            "name": "cortexM4",
+            "hidden": true,
+            "inherits": "cortexM",
+            "cacheVariables": {
+                "MCPU": "-mcpu=cortex-m4",
+                "MFPU": "-mfpu=fpv4-sp-d16 -mfloat-abi=hard",
+                "ARCH": "CortexM4"
+            }
+        },
+        {
+            "name": "f4disco",
+            "inherits": "cortexM4",
+            "description": "Cortex-M4 STM32F407VGT @ stm32f4discovery",
+            "cacheVariables": {
+                 "HW": "f4disco",
+                "CPU": "STM32F407VGT",
+                "HAL": "STM32F4"}
+        },
+        {
             "name": "linux",
             "displayName": "x86_64-linux-gnu",
             "description": "native host",
