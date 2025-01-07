@@ -36,8 +36,12 @@ void yyerror(const char *msg) {
 
 int _main(void) {
 #ifdef STM32F4
-    SCB->VTOR = (unsigned int)&_VECTOR_TABLE;  // .isr_vector @ .ld file
-#endif
+    // .isr_vector @ .ld file
+    SCB->VTOR = (unsigned int)&_VECTOR_TABLE;
+#endif  // STM32F4
     jshInit();
     jswHWInit();
+#ifdef USB
+    MX_USB_DEVICE_Init();
+#endif  // USB
 }

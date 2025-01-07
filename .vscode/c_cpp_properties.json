@@ -1,5 +1,44 @@
 {
     "version": 4,
     "configurations": [
+        {
+            "name": "x86_64-linux-gnu",
+            "includePath": [
+                "${workspaceFolder}/inc/**",
+                "${workspaceFolder}/tmp/**",
+                "${workspaceFolder}/src/**"
+            ],
+            "forcedInclude": [
+            ],
+            "defines": [
+                "X86_64", "LINUX",
+                "USB"
+            ],
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/x86_64-linux-gnu-g++"
+        },
+        {
+            "name": "f4disco",
+            "includePath": [
+                "${workspaceFolder}/inc/**",
+                "${workspaceFolder}/tmp/**",
+                "${workspaceFolder}/src/**"
+            ],
+            "forcedInclude": [
+            ],
+            "defines": [
+                "F4DISCO", "BARE",
+                "HSI_VALUE=16000000",
+                "HSE_VALUE=8000000",
+                "STM32F4", "STM32F405xx",
+                "USB"
+            ],
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/arm-none-eabi-g++"
+        }
     ]
 }
