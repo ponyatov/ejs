@@ -69,6 +69,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define HSE_IN_Pin LL_GPIO_PIN_0
+#define HSE_IN_GPIO_Port GPIOH
+#define HSE_OUT_Pin LL_GPIO_PIN_1
+#define HSE_OUT_GPIO_Port GPIOH
 #define SWDIO_Pin LL_GPIO_PIN_13
 #define SWDIO_GPIO_Port GPIOA
 #define SWCLK_Pin LL_GPIO_PIN_14

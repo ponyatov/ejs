@@ -2,11 +2,16 @@
 #include "syntax.hpp"
 #include "hw.hpp"
 #include "os.hpp"
+#include "espruino.hpp"
 
 int main(int argc, char *argv[]) {  //
     {
         hw_init();
         os_init();
+#ifdef STM32F4
+        SCB->VTOR = (unsigned int)&_VECTOR_TABLE;  // .isr_vector @ .ld file
+#endif
+        jshInit();
     }
     arg(0, argv[0]);
     for (int i = 1; i < argc; i++) {  //
