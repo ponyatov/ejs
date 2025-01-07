@@ -1,6 +1,7 @@
 #pragma once
 
 /// @defgroup libc libc
+/// @ingroup core
 /// @{
 #include <stdio.h>
 #include <stdlib.h>

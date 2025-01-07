@@ -1,5 +1,9 @@
 #pragma once
 
+/// @defgroup pin pin
+/// @ingroup esp
+/// @{
+
 /// hardware pin specification
 typedef unsigned char Pin;
 
@@ -11,3 +15,5 @@ typedef unsigned char Pin;
 
 /// see @ref jshPinWatch / @ref jshGetWatchedPinState
 extern Pin watchedPins[WATCHED_PINS];
+
+/// @}

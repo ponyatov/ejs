@@ -3,6 +3,7 @@
 #include "libc.hpp"
 
 /// @defgroup syntax syntax
+/// @ingroup core
 /// @{
 /// @name lexer
 /// @{
