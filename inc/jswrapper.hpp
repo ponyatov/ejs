@@ -1,6 +1,7 @@
 #pragma once
 
-/// @defgroup wrapper wrapper
+/// @defgroup jsw jsw
+/// @brief `wrapper`
 /// @ingroup esp
 /// @{
 

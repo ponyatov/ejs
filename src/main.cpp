@@ -4,18 +4,14 @@
 #include "os.hpp"
 #include "espruino.hpp"
 
-int main(int argc, char *argv[]) {  //
+int main(int argc, char *argv[]) {
     {
         hw_init();
         os_init();
-#ifdef STM32F4
-        SCB->VTOR = (unsigned int)&_VECTOR_TABLE;  // .isr_vector @ .ld file
-#endif
-        jshInit();
-        jswHWInit();
+        _main();
     }
     arg(0, argv[0]);
-    for (int i = 1; i < argc; i++) {  //
+    for (int i = 1; i < argc; i++) {
         arg(i, argv[i]);
         assert(yyfile = argv[i]);
         assert(yyin = fopen(yyfile, "r"));
@@ -23,8 +19,10 @@ int main(int argc, char *argv[]) {  //
         fclose(yyin);
         yyfile = nullptr;
     }
-    os_fini();
-    hw_fini();
+    {
+        os_fini();
+        hw_fini();
+    }
 }
 
 void arg(int argc, char *argv) {  //
@@ -34,4 +32,12 @@ void arg(int argc, char *argv) {  //
 void yyerror(const char *msg) {
     fprintf(stderr, "\n\n%i: %s [%s]\n\n", yylineno, msg, yytext);
     exit(-1);
+}
+
+int _main(void) {
+#ifdef STM32F4
+    SCB->VTOR = (unsigned int)&_VECTOR_TABLE;  // .isr_vector @ .ld file
+#endif
+    jshInit();
+    jswHWInit();
 }

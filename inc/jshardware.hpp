@@ -1,5 +1,12 @@
 #pragma once
 
-/// jshInit is called at start-up, put hardware dependent init stuff in this
-/// function
+/// @defgroup jsh jsh
+/// @brief `hardware`
+/// @ingroup esp
+/// @{
+
+/// @brief called at start-up,
+/// put hardware dependent init stuff here
 void jshInit();
+
+/// @}
