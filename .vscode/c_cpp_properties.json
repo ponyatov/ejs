@@ -6,7 +6,9 @@
             "includePath": [
                 "${workspaceFolder}/inc/**",
                 "${workspaceFolder}/tmp/**",
-                "${workspaceFolder}/src/**"
+                "${workspaceFolder}/src/**",
+                "${workspaceFolder}/hw/x86_64/inc/**",
+                "${workspaceFolder}/os/linux/inc/**"
             ],
             "forcedInclude": [
             ],
@@ -24,7 +26,9 @@
             "includePath": [
                 "${workspaceFolder}/inc/**",
                 "${workspaceFolder}/tmp/**",
-                "${workspaceFolder}/src/**"
+                "${workspaceFolder}/src/**",
+                "${workspaceFolder}/hw/f4disco/inc/**",
+                "${workspaceFolder}/os/bare/inc/**"
             ],
             "forcedInclude": [
             ],
