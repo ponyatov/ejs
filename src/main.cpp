@@ -44,4 +44,5 @@ int _main(void) {
 #ifdef USB
     MX_USB_DEVICE_Init();
 #endif  // USB
+    return 0;
 }

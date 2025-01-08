@@ -9,4 +9,5 @@
 #include "jspininfo.hpp"
 #include "jsutils.hpp"
 #include "jswrapper.hpp"
+#include "usb.hpp"
 /// @}
