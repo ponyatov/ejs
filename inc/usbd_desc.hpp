@@ -3,6 +3,7 @@
 #include "usbd_def.hpp"
 
 /// @defgroup udesc desc
+/// @brief `usbd_desc`
 /// @ingroup usb
 /// @{
 

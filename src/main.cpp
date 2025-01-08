@@ -52,5 +52,10 @@ int _main(void) {
     buttonState = jshPinInput(BTN1_PININDEX) == BTN1_ONSTATE;
 #endif  // BTN1_PININDEX
 
+    jsvInit(JSVAR_CACHE_SIZE);
+    // jsiInit(!buttonState);
+
+    // while (1) { jsiLoop(); }
+
     return 0;
 }

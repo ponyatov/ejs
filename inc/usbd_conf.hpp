@@ -1,7 +1,8 @@
 #pragma once
 
 /// @defgroup uconf conf
-/// @ingroup udb
+/// @brief `usbd_conf`
+/// @ingroup usb
 /// @{
 
 #define DEVICE_FS 0
