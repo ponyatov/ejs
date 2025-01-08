@@ -16,4 +16,7 @@ typedef unsigned char Pin;
 /// see @ref jshPinWatch / @ref jshGetWatchedPinState
 extern Pin watchedPins[WATCHED_PINS];
 
+bool jshPinInput(Pin pin);
+void jshPinOutput(Pin pin, bool value);
+
 /// @}

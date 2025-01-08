@@ -3,6 +3,7 @@
 /// @defgroup esp esp
 /// @brief @ref Espruino
 /// @{
+#include "platform_config.hpp"
 #include "libc.hpp"
 #include "jshardware.hpp"
 #include "jspin.hpp"

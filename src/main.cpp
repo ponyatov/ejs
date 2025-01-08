@@ -39,10 +39,18 @@ int _main(void) {
     // .isr_vector @ .ld file
     SCB->VTOR = (unsigned int)&_VECTOR_TABLE;
 #endif  // STM32F4
+
     jshInit();
     jswHWInit();
+
 #ifdef USB
     MX_USB_DEVICE_Init();
 #endif  // USB
+
+#ifdef BTN1_PININDEX
+    bool buttonState = false;
+    buttonState = jshPinInput(BTN1_PININDEX) == BTN1_ONSTATE;
+#endif  // BTN1_PININDEX
+
     return 0;
 }
