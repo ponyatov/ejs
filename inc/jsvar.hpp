@@ -37,4 +37,15 @@ typedef uint16_t JsVarRef;
 /// @ref jsvCreateEmptyVarList in @ref jsvSoftInit sets this
 extern volatile JsVarRef jsVarFirstEmpty;
 
+typedef struct JsVarStruct {
+    /** The actual variable data, as well as references (see below). Put first
+     * so word aligned */
+    JsVarData varData;
+
+    /** the flags determine the type of the variable - int/double/string/etc. */
+    volatile JsVarFlags flags;
+} PACKED_FLAGS JsVar;
+
+extern JsVar *jsVars;
+
 /// @}

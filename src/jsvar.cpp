@@ -23,6 +23,8 @@ void jsvReset() {
     jsVarFirstEmpty = 0;
 
 #ifdef RESIZABLE_JSVARS
+    // JSVAR_BLOCK_SHIFT JSVAR_BLOCK_SIZE
 #else
+    memset(jsVars, 0, sizeof(JsVar) * jsVarsSize);
 #endif  // RESIZABLE_JSVARS
 }
