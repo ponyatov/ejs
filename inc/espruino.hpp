@@ -11,6 +11,6 @@
 #include "jspininfo.hpp"
 #include "jswrapper.hpp"
 #include "usb.hpp"
-#include "jsvar.hpp"
 #include "jstypes.hpp"
+#include "jsvar.hpp"
 /// @}

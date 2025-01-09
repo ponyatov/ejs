@@ -24,17 +24,19 @@ void jsvReset();
 /// NOTE: we store @ref JSVAR_DATA_STRING as actual values
 /// so we can do #if on them below
 typedef uint16_t JsVarRef;
+typedef int16_t JsVarRefSigned;
 #endif  // JSVAR_CACHE_SIZE
 
 /// reference of first unused variable (variables are in a linked list)
 /// @ref jsvCreateEmptyVarList in @ref jsvSoftInit sets this
 extern volatile JsVarRef jsVarFirstEmpty;
 
-#include "jsutils.hpp"
-
 typedef uint16_t JsVarArrayBufferLength;
 #define JSV_ARRAYBUFFER_MAX_LENGTH 0xFFFF
 #define JSV_ARRAYBUFFER_LENGTH_BITS :16
+
+typedef uint16_t JsVarDataNativeStrLength;
+#define JSV_NATIVE_STR_MAX_LENGTH 0xFFFF
 
 typedef enum {
     ARRAYBUFFERVIEW_UNDEFINED = 0,
@@ -62,6 +64,64 @@ typedef struct {
     JsVarArrayBufferLength length JSV_ARRAYBUFFER_LENGTH_BITS;
     JsVarDataArrayBufferViewType type;
 } PACKED_FLAGS JsVarDataArrayBufferView;
+
+/// Data for native functions. Has to fit behind firstChild
+typedef struct {
+    void (*ptr)(void);  ///< Function pointer - this may not be the real address
+                        ///< - see jsvGetNativeFunctionPtr
+    uint16_t argTypes;  ///< Actually a list of JsnArgumentType
+} PACKED_FLAGS JsVarDataNative;
+
+/// Data for native strings. Has to fit behind refCount
+typedef struct {
+    char *ptr;
+    JsVarDataNativeStrLength len;
+} PACKED_FLAGS JsVarDataNativeStr;
+
+typedef uint16_t JsVarRefCounter;
+
+/// References
+typedef struct {
+    /* padding for data. Must be big enough for an int */
+    int8_t pad[JSVAR_DATA_STRING_NAME_LEN_];  // use JSVAR_DATA_STRING_NAME_LEN_
+                                              // not JSVAR_DATA_STRING_NAME_LEN
+                                              // here so EMBED builds can handle
+                                              // 64 bit
+
+    /* For Variable NAMES (e.g. Object/Array keys) these store actual
+     * next/previous pointers for a linked list or 0.
+     *   - if nextSibling==prevSibling==!0 then they point to the object that
+     * should contain this name if it ever gets set to anything that's not
+     * undefined For STRING_EXT - extra characters Not used for other stuff
+     */
+    JsVarRef nextSibling : JSVARREF_BITS;
+    JsVarRef prevSibling : JSVARREF_BITS;
+
+    /**
+     * For OBJECT/ARRAY/FUNCTION - this is the first child
+     * For NAMES and REF - this is a link to the variable it points to
+     * For STRING_EXT - extra character data (NOT a link)
+     * For ARRAYBUFFER - a link to a string containing the data for the array
+     * buffer For CHILD_OF - a link to the variable pointed to
+     */
+    JsVarRef firstChild : JSVARREF_BITS;
+#if JSVARREFCOUNT_PACK_BITS
+    JsVarRef __packing : JSVARREFCOUNT_PACK_BITS;
+#endif
+    /** The number of references held to this - used for automatic garbage
+     * collection. NOT USED for STRINGEXT though (it is just extra characters)
+     */
+    JsVarRefCounter refs : JSVARREFCOUNT_BITS;
+
+    /**
+     * For OBJECT/ARRAY/FUNCTION - this is the last child
+     * For STRINGS/STRING_EXT/NAME+STRING - this is a link to more string data
+     * if it is needed For REF - this is the 'parent' that the firstChild is a
+     * member of For CHILD_OF - a link to the object that should contain the
+     * variable
+     */
+    JsVarRef lastChild : JSVARREF_BITS;
+} PACKED_FLAGS JsVarDataRef;
 
 /** Union that contains all the different types of data. This should all
  be @ref JSVAR_DATA_STRING_MAX_LEN long.
@@ -150,13 +210,13 @@ typedef enum {
                                           ///< variables, object fields/etc)
     JSV_STRING_0 = JSV_NAME_STRING_MAX + 1,  // simple string value of length 0
     JSV_STRING_MAX = JSV_STRING_0 + JSVAR_DATA_STRING_LEN,
-    JSV_FLAT_STRING =
-        JSV_STRING_MAX +
-        1,  ///< Flat strings store the length (in chars) as an int, and then
-            ///< the subsequent JsVars (in memory) store data
-    JSV_NATIVE_STRING =
-        JSV_FLAT_STRING + 1,  ///< Native strings store an address and length,
-                              ///< and reference the underlying data directly
+    /// Flat strings store the length (in chars) as an int, and then
+    /// the subsequent JsVars (in memory) store data
+    JSV_FLAT_STRING = JSV_STRING_MAX + 1,
+    /// Native strings store an address and length,
+    /// and reference the underlying data directly
+    JSV_NATIVE_STRING = JSV_FLAT_STRING + 1,
+
 #ifdef ESPR_UNICODE_SUPPORT
     JSV_UTF8_STRING,  ///< UTF8 that just pointss to a normal string with
                       ///< lastChild, but just tag that the string is a unicode
