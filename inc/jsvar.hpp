@@ -273,8 +273,9 @@ typedef struct JsVarStruct {
     volatile JsVarFlags flags;
 } PACKED_FLAGS JsVar;
 
+/// @brief var storage size (variables)
+extern const size_t jsVarsSize;
+/// @brief var storage memory (variables)
 extern JsVar *jsVars;
-
-extern unsigned int jsVarsSize;
 
 /// @}

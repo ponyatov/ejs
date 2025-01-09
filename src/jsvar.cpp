@@ -1,11 +1,9 @@
 #include "espruino.hpp"
 
 void jsvInit(unsigned int size) {
-#ifdef RESIZABLE_JSVARS
-#elif defined(JSVAR_MALLOC)
-#else
     assert(size == JSVAR_CACHE_SIZE);
-#endif  // RESIZABLE_JSVARS
+    assert(!jsVars);
+    assert(jsVars = (JsVar *)malloc(sizeof(JsVar) * jsVarsSize));
     jsvReset();
 }
 
@@ -20,3 +18,6 @@ void jsvReset() {
     memset(jsVars, 0, sizeof(JsVar) * jsVarsSize);
 #endif  // RESIZABLE_JSVARS
 }
+
+const size_t jsVarsSize = JSVAR_CACHE_SIZE;
+JsVar *jsVars = nullptr;
