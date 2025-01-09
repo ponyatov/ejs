@@ -273,9 +273,22 @@ typedef struct JsVarStruct {
     volatile JsVarFlags flags;
 } PACKED_FLAGS JsVar;
 
+/// @defgroup pool pool
+/// @brief variables storage pool
+/// @details Basically, @ref jsVars are stored in one big array, so save the
+/// need for lots of memory allocation.<br> On @ref LINUX, the arrays are in
+/// blocks, so that more blocks can be allocated.<br> We can't use @ref realloc
+/// on one big block as this may change the address of vars that are already
+/// locked!
+/// @{
+
 /// @brief var storage size (variables)
-extern const size_t jsVarsSize;
+extern const unsigned int jsVarsSize;
 /// @brief var storage memory (variables)
-extern JsVar *jsVars;
+/// - init: @ref jsvReset
+/// - segmented: @ref RESIZABLE_JSVARS
+extern JsVar jsVars[JSVAR_CACHE_SIZE] __attribute__((aligned(4)));
+
+/// @}
 
 /// @}

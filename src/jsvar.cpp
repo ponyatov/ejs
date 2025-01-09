@@ -2,8 +2,10 @@
 
 void jsvInit(unsigned int size) {
     assert(size == JSVAR_CACHE_SIZE);
-    assert(!jsVars);
-    assert(jsVars = (JsVar *)malloc(sizeof(JsVar) * jsVarsSize));
+#ifdef JSVAR_MALLOC
+// assert(!jsVars);
+// assert(jsVars = (JsVar *)malloc(sizeof(JsVar) * jsVarsSize));
+#endif  // JSVAR_MALLOC
     jsvReset();
 }
 
@@ -19,5 +21,8 @@ void jsvReset() {
 #endif  // RESIZABLE_JSVARS
 }
 
-const size_t jsVarsSize = JSVAR_CACHE_SIZE;
-JsVar *jsVars = nullptr;
+// const size_t jsVarsSize = JSVAR_CACHE_SIZE;
+// JsVar *jsVars = nullptr;
+
+JsVar jsVars[JSVAR_CACHE_SIZE];
+const unsigned int jsVarsSize = JSVAR_CACHE_SIZE;

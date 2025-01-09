@@ -1,5 +1,9 @@
 #pragma once
 
+/// @defgroup utils utils
+/// @ingroup esp
+/// @{
+
 /// 32-bit bit array
 #define BITFIELD_DECL(BITFIELD, N) uint32_t BITFIELD[((N) + 31) / 32]
 /// Clear all elements
@@ -66,3 +70,5 @@
      : ((X) == 16384) ? 14 \
      : ((X) == 32768) ? 15 \
                       : 10000 /*error*/)
+
+/// @}
