@@ -5,6 +5,9 @@
 /// Clear all elements
 #define BITFIELD_CLEAR(BITFIELD) memset(BITFIELD, 0, sizeof(BITFIELD))
 
+/// Max length of JSV_NAME_ strings
+#define JSVAR_DATA_STRING_NAME_LEN 4
+
 /// Max length for a @ref JSV_STRINGEXT, JsVar.varData.ref.lastChild
 /// (see comments under @ref JsVar decl in jsvar.h)
 #define JSVAR_DATA_STRING_MAX_LEN                                           \
