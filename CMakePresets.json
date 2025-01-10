@@ -9,7 +9,9 @@
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/bin/${presetName}",
                 "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_VERBOSE_MAKEFILE": true
+                "CMAKE_VERBOSE_MAKEFILE": true,
+                "CMAKE_C_STANDARD": "17",
+                "CMAKE_CXX_STANDARD": "17"
             }
         },
         {
