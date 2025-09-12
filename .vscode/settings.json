@@ -6,7 +6,11 @@
         "bin/**": true, "tmp/**": true, "ref/**": true,
     },
     "files.associations": {
-        "*.ini": "ejs", "*.ejs": "ejs",
+        "*.kernel": "properties", "*.uclibc": "properties",
+        "*.mk": "makefile", "*.make": "makefile",
+        "*.ld": "linkerscript", "*.ld.fix": "linkerscript",
+        "*.ioc": "properties", "*.ocd": "properties",
+        "*.ini": "ejs", "*.ejs": "ejs"
     },
 
     // editor
